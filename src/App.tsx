@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import ContactPage from "./ContactPage";
 import "./App.css";
 import logoImg from "../images/transparent_logo.svg";
@@ -12,6 +18,27 @@ import gfsImg from "../images/gfs_stock.png";
 import walmartNewsImg from "../images/walmart_freezer.png";
 import walmartFreezer from "../images/walmart_news.png";
 import longPhoto from "../images/long_photo.png";
+import pkgZeljanicaSwirl from "../images/packaging/zeljanica-swirl-front.jpg";
+import pkgSirnicaSwirl from "../images/packaging/sirnica-swirl-front.jpg";
+import pkgBurekSwirl from "../images/packaging/burek-swirl-front.jpg";
+import pkgKrompirusaSwirl from "../images/packaging/krompirusa-swirl-front.jpg";
+import pkgAppleSwirl from "../images/packaging/apple-swirl-front.jpg";
+import pkgZeljanicaBites from "../images/packaging/zeljanica-bites-front.jpg";
+import pkgCheeseBites from "../images/packaging/cheese-bites-front.jpg";
+import pkgBurekBites from "../images/packaging/burek-bites-front.jpg";
+import pkgKrompirusaBites from "../images/packaging/krompirusa-bites-front.jpg";
+import pkgAppleBites from "../images/packaging/apple-bites-front.jpg";
+import pkgZeljanicaBack from "../images/packaging/zeljanica-back.jpg";
+import pkgSirnicaBack from "../images/packaging/sirnica-back.jpg";
+import pkgBurekSwirlBack from "../images/packaging/burek-swirl-back.jpg";
+import pkgBurekBitesBack from "../images/packaging/burek-bite-back-v2.jpg";
+import pkgKrompirusaBack from "../images/packaging/krompirusa-back.jpg";
+import pkgAppleBack from "../images/packaging/apple-back.jpg";
+import nlZeljanica from "../images/nutrition_labels/zeljanica-nutrition-label.jpg";
+import nlSirnica from "../images/nutrition_labels/sirnica-nutrition-label.jpg";
+import nlBurek from "../images/nutrition_labels/burek-beef-nutrition-label.jpg";
+import nlKrompirusa from "../images/nutrition_labels/krompirusa-nutrition-label.jpg";
+import nlApple from "../images/nutrition_labels/apple-nutrition-label.jpg";
 import meijerPhoto from "../images/meijer_photo.png";
 
 /* ============================================================
@@ -57,7 +84,9 @@ function Nav() {
 
         <div className={`nav__links${open ? " nav__links--open" : ""}`}>
           <button onClick={() => goToSection("about")}>About Us</button>
-          <Link to="/contact" onClick={() => setOpen(false)}>Wholesale</Link>
+          <Link to="/contact" onClick={() => setOpen(false)}>
+            Wholesale
+          </Link>
           <button onClick={() => goToSection("products")}>Products</button>
           <Link to="/contact" onClick={() => setOpen(false)}>
             Contact Us
@@ -93,6 +122,17 @@ function Nav() {
    ============================================================ */
 
 function Hero() {
+  const navigate = useNavigate();
+
+  function goToSection(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollTo: id } });
+    }
+  }
+
   return (
     <section className="hero">
       <div className="hero__content">
@@ -117,9 +157,12 @@ function Hero() {
           <a href="#products" className="btn btn--red">
             View Bites &amp; Swirls →
           </a>
-          <a href="#about" className="btn btn--outline">
+          <button
+            onClick={() => goToSection("about")}
+            className="btn btn--outline"
+          >
             Our Story
-          </a>
+          </button>
         </div>
       </div>
 
@@ -224,8 +267,68 @@ const FIND_ITEMS = [
 ];
 
 function FindSection() {
+  const navigate = useNavigate();
+
+  function goToSection(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollTo: id } });
+    }
+  }
+
+  function renderCard(item: (typeof FIND_ITEMS)[number]) {
+    const inner = (
+      <>
+        {item.src !== null && (
+          <img
+            className="find__card-img"
+            src={item.src || undefined}
+            alt={item.label}
+          />
+        )}
+        <div className="find__card-body">
+          <span className="find__card-title">{item.label}</span>
+          <span className="find__card-desc">{item.desc}</span>
+          <span className="find__card-arrow">→</span>
+        </div>
+      </>
+    );
+
+    if (item.href.startsWith("http")) {
+      return (
+        <a
+          key={item.label}
+          href={item.href}
+          className="find__card"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {inner}
+        </a>
+      );
+    }
+    if (item.href.startsWith("#")) {
+      return (
+        <button
+          key={item.label}
+          onClick={() => goToSection(item.href.slice(1))}
+          className="find__card"
+        >
+          {inner}
+        </button>
+      );
+    }
+    return (
+      <Link key={item.label} to={item.href} className="find__card">
+        {inner}
+      </Link>
+    );
+  }
+
   return (
-    <section className="find" id="products">
+    <section className="find">
       <div className="find__container">
         <div className="find__header">
           <span className="find__eyebrow">Navigation</span>
@@ -241,29 +344,7 @@ function FindSection() {
         </div>
 
         <div className="find__grid">
-          {FIND_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="find__card"
-              {...(item.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              {item.src !== null && (
-                <img
-                  className="find__card-img"
-                  src={item.src || undefined}
-                  alt={item.label}
-                />
-              )}
-              <div className="find__card-body">
-                <span className="find__card-title">{item.label}</span>
-                <span className="find__card-desc">{item.desc}</span>
-                <span className="find__card-arrow">→</span>
-              </div>
-            </a>
-          ))}
+          {FIND_ITEMS.map((item) => renderCard(item))}
         </div>
       </div>
     </section>
@@ -339,14 +420,24 @@ function About() {
           </h2>
 
           <p className="about__body">
-            Our swirls and bites are a delicious, oven-ready way to experience
-            the bold, comforting flavors of Balkan tradition — made with love,
-            ready in minutes.
+            Burek Etc. was born from a dream carried across an ocean. Our
+            founder arrived in America with a goal: bring back the taste of
+            home. The smell of burek baking in the early morning. The warmth of
+            a kitchen that felt like belonging.
           </p>
 
-          <a href="#about" className="about__link">
-            Learn More →
-          </a>
+          <p className="about__body">
+            Rebuilding life in Michigan as a refugee, that dream never faded.
+            What if everyone could experience that comfort? So we started
+            folding, layering, and baking. One tray at a time. One store at a
+            time.
+          </p>
+
+          <p className="about__body">
+            Today, Burek Etc. is stocked across the Midwest and the recipe
+            hasn't changed. Still handcrafted. Still oven-ready. Still a little
+            piece of Bosnia, baked for everyone.
+          </p>
         </div>
         {/* 5-image collage: tall portrait left + 2×2 grid right */}
         <div className="about__collage">
@@ -382,10 +473,233 @@ function About() {
 }
 
 /* ============================================================
+   PRODUCTS
+   ============================================================ */
+
+const PRODUCT_BASE = [
+  {
+    id: "zeljanica",
+    name: "Zeljanica",
+    subtitle: "Spinach & Cheese",
+    description:
+      "Traditional Bosnian pita featuring hand-stretched, multi-layered phyllo dough. Filled with a savory blend of Feta and Ricotta cheeses mixed with fresh Spinach. Hand-rolled to ensure a crisp exterior and tender, layered interior.",
+    swirlImg: pkgZeljanicaSwirl,
+    bitesImg: pkgZeljanicaBites,
+    backImg: pkgZeljanicaBack,
+    nutritionImg: nlZeljanica,
+  },
+  {
+    id: "sirnica",
+    name: "Sirnica",
+    subtitle: "Cheese",
+    description:
+      "A classic vegetarian staple. This handmade pastry utilizes dozens of thin phyllo layers to encase a balanced Feta and Ricotta cheese blend. Salted to profile and baked until the pastry achieves a golden, flaky texture.",
+    swirlImg: pkgSirnicaSwirl,
+    bitesImg: pkgCheeseBites,
+    backImg: pkgSirnicaBack,
+    nutritionImg: nlSirnica,
+  },
+  {
+    id: "burek",
+    name: "Burek",
+    subtitle: "Beef",
+    description:
+      'The authentic "Burek." Comprised of lean Beef, sautéed Onions, and a traditional Bosnian spice profile. The meat is folded into handmade dough, creating a dense, savory filling within light, concentric layers of pastry. Halal options are available.',
+    swirlImg: pkgBurekSwirl,
+    bitesImg: pkgBurekBites,
+    backImg: pkgBurekSwirlBack,
+    bitesBackImg: pkgBurekBitesBack,
+    nutritionImg: nlBurek,
+  },
+  {
+    id: "krompirusa",
+    name: "Krompirusa",
+    subtitle: "Potato",
+    description:
+      "A traditional vegan-friendly option (Krompiruša). Features diced Potatoes seasoned with Onions, black pepper, and salt. The starch provides a soft contrast to the crisp, hand-worked phyllo dough layers.",
+    swirlImg: pkgKrompirusaSwirl,
+    bitesImg: pkgKrompirusaBites,
+    backImg: pkgKrompirusaBack,
+    nutritionImg: nlKrompirusa,
+  },
+  {
+    id: "apple",
+    name: "Apple",
+    subtitle: "Sweet",
+    description:
+      "A sweet dessert pastry. Prepared with fresh Michigan Apples and Cinnamon, wrapped in signature handmade phyllo. The tartness of the local fruit complements the flaky, many-layered crust.",
+    swirlImg: pkgAppleSwirl,
+    bitesImg: pkgAppleBites,
+    backImg: pkgAppleBack,
+    nutritionImg: nlApple,
+  },
+];
+
+type Product = {
+  id: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  variant: "Swirl" | "Bites";
+  img: string;
+  images: string[];
+};
+
+const PRODUCTS: Product[] = [
+  ...PRODUCT_BASE.map((p) => ({
+    ...p,
+    variant: "Swirl" as const,
+    img: p.swirlImg,
+    images: [p.swirlImg, p.backImg, p.nutritionImg],
+  })),
+  ...PRODUCT_BASE.map((p) => ({
+    ...p,
+    variant: "Bites" as const,
+    img: p.bitesImg,
+    images: [p.bitesImg, ("bitesBackImg" in p ? p.bitesBackImg : p.backImg) as string, p.nutritionImg],
+  })),
+];
+
+function Products() {
+  const [selected, setSelected] = useState<Product | null>(null);
+  const [imgIdx, setImgIdx] = useState(0);
+
+  function openProduct(product: Product) {
+    setSelected(product);
+    setImgIdx(0);
+  }
+
+  function closeModal() {
+    setSelected(null);
+    setImgIdx(0);
+  }
+
+  const swirls = PRODUCTS.filter((p) => p.variant === "Swirl");
+  const bites = PRODUCTS.filter((p) => p.variant === "Bites");
+
+  return (
+    <section className="products" id="products">
+      <div className="products__inner">
+        <div className="products__header">
+          <span className="products__eyebrow">The Lineup</span>
+          <h2 className="products__heading">
+            HANDCRAFTED
+            <br />
+            <em>FOR EVERY</em>
+            <br />
+            TABLE.
+          </h2>
+        </div>
+
+        {[{ label: "Swirls", items: swirls }, { label: "Bites", items: bites }].map(
+          ({ label, items }) => (
+            <div className="products__group" key={label}>
+              <h3 className="products__group-label">{label}</h3>
+              <div className="products__grid">
+                {items.map((product) => (
+                  <button
+                    key={product.id + product.variant}
+                    className="product-card"
+                    onClick={() => openProduct(product)}
+                  >
+                    <img
+                      className="product-card__img-slot"
+                      src={product.img}
+                      alt={`${product.name} ${product.variant}`}
+                    />
+                    <div className="product-card__body">
+                      <span className="product-card__name">
+                        {product.name} <span className="product-card__variant">{product.variant}</span>
+                      </span>
+                      <span className="product-card__subtitle">{product.subtitle}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        )}
+      </div>
+
+      {selected && (
+        <div className="product-modal" onClick={closeModal}>
+          <div
+            className="product-modal__box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="product-modal__close" onClick={closeModal} aria-label="Close">
+              ✕
+            </button>
+
+            {/* Gallery panel */}
+            <div className="product-modal__gallery">
+              {selected.images.map((src, i) => (
+                <img
+                  key={src}
+                  className={`product-modal__gallery-img${i === selected.images.length - 1 ? " product-modal__gallery-img--label" : ""}${i === imgIdx ? " product-modal__gallery-img--active" : ""}`}
+                  src={src}
+                  alt={`${selected.name} ${selected.variant} — photo ${i + 1}`}
+                />
+              ))}
+              {selected.images.length > 1 && (
+                <>
+                  <button
+                    className="product-modal__gallery-prev"
+                    onClick={() => setImgIdx((i) => (i - 1 + selected.images.length) % selected.images.length)}
+                    aria-label="Previous photo"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    className="product-modal__gallery-next"
+                    onClick={() => setImgIdx((i) => (i + 1) % selected.images.length)}
+                    aria-label="Next photo"
+                  >
+                    ›
+                  </button>
+                  <div className="product-modal__dots">
+                    {selected.images.map((_, i) => (
+                      <button
+                        key={i}
+                        className={`product-modal__dot${i === imgIdx ? " product-modal__dot--active" : ""}`}
+                        onClick={() => setImgIdx(i)}
+                        aria-label={`Photo ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="product-modal__content">
+              <span className="product-modal__variant">{selected.variant}</span>
+              <h3 className="product-modal__title">{selected.name}</h3>
+              <span className="product-modal__subtitle">{selected.subtitle}</span>
+              <p className="product-modal__desc">{selected.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 
 function Footer() {
+  const navigate = useNavigate();
+
+  function goToSection(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollTo: id } });
+    }
+  }
+
   return (
     <footer className="footer" id="contact">
       <div className="footer__top">
@@ -418,10 +732,10 @@ function Footer() {
           <h4>Company</h4>
           <ul>
             <li>
-              <a href="#about">About Us</a>
+              <button onClick={() => goToSection("about")}>About Us</button>
             </li>
             <li>
-              <a href="#wholesale">Wholesale</a>
+              <Link to="/contact">Wholesale</Link>
             </li>
           </ul>
         </div>
@@ -458,21 +772,24 @@ function Footer() {
 
 function HomePage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const id = (location.state as { scrollTo?: string } | null)?.scrollTo;
     if (!id) return;
+    // Clear the state from history so back-navigation doesn't re-trigger the scroll
+    navigate(".", { replace: true, state: {} });
     const NAV_HEIGHT = 80;
     const attempt = (tries: number) => {
       const el = document.getElementById(id);
       if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+        const top =
+          el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
         window.scrollTo({ top, behavior: "smooth" });
       } else if (tries > 0) {
         setTimeout(() => attempt(tries - 1), 100);
       }
     };
-    // Wait for page to fully render before measuring
     setTimeout(() => attempt(10), 200);
   }, [location.state]);
 
@@ -482,6 +799,7 @@ function HomePage() {
         <Hero />
         <SeenIn />
         <FindSection />
+        <Products />
         <InstagramFeed />
         <About />
       </main>
