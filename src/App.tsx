@@ -154,9 +154,9 @@ function Hero() {
         </p>
 
         <div className="hero__actions">
-          <a href="#products" className="btn btn--red">
+          <button onClick={() => goToSection("products")} className="btn btn--red">
             View Bites &amp; Swirls →
-          </a>
+          </button>
           <button
             onClick={() => goToSection("about")}
             className="btn btn--outline"
