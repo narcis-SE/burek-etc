@@ -862,9 +862,10 @@
 .product-card__img-slot {
   width: 100%;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-  background-color: #2a2b2d;
+  background-color: #f4f4f4;
+  padding: 16px;
 }
 
 .product-card__body {

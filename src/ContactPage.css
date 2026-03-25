@@ -243,7 +243,8 @@
    RESPONSIVE
    ---------------------------------------- */
 
-@media (max-width: 900px) {
+/* Tablet layout (768px - 900px) */
+@media (max-width: 900px) and (min-width: 768px) {
   .contact-page__inner {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -252,14 +253,116 @@
   .contact-page__header {
     position: static;
   }
+  
+  /* Keep form fields in two columns on tablets */
+  .contact-page__row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-@media (max-width: 560px) {
-  .contact-page__form-wrap {
-    padding: 28px 20px;
+/* Mobile layout (below 768px) */
+@media (max-width: 767px) {
+  .contact-page__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 80px var(--px) var(--section-py);
   }
 
+  .contact-page__header {
+    position: static;
+  }
+  
+  .contact-page__form-wrap {
+    padding: 32px 20px;
+  }
+
+  /* Stack form fields vertically on mobile */
   .contact-page__row {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .contact-page__field--full {
+    grid-column: 1 / -1;
+  }
+  
+  /* Adjust heading sizes for mobile */
+  .contact-page__heading {
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 0.95;
+  }
+  
+  .contact-page__sub {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  /* Adjust info section for mobile */
+  .contact-page__info {
+    gap: 16px;
+  }
+  
+  .contact-page__info-label {
+    font-size: 9px;
+  }
+  
+  .contact-page__info-item a,
+  .contact-page__info-item span {
+    font-size: 13px;
+  }
+  
+  /* Adjust form elements for mobile */
+  .contact-page__field label {
+    font-size: 10px;
+  }
+  
+  .contact-page__field input,
+  .contact-page__field textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  .contact-page__btn {
+    padding: 14px 32px;
+    font-size: 12px;
+  }
+  
+  /* Adjust success state for mobile */
+  .contact-page__success h2 {
+    font-size: 28px;
+  }
+  
+  .contact-page__success p {
+    font-size: 14px;
+  }
+}
+
+/* Small mobile layout (below 560px) */
+@media (max-width: 560px) {
+  .contact-page__inner {
+    padding: 60px var(--px) var(--section-py);
+  }
+  
+  .contact-page__form-wrap {
+    padding: 24px 16px;
+  }
+  
+  .contact-page__heading {
+    font-size: clamp(32px, 7vw, 56px);
+  }
+  
+  .contact-page__sub {
+    font-size: 13px;
+  }
+  
+  .contact-page__field input,
+  .contact-page__field textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .contact-page__btn {
+    padding: 12px 28px;
+    font-size: 11px;
   }
 }

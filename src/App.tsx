@@ -18,16 +18,16 @@ import gfsImg from "../images/gfs_stock.png";
 import walmartNewsImg from "../images/walmart_freezer.png";
 import walmartFreezer from "../images/walmart_news.png";
 import longPhoto from "../images/long_photo.png";
-import pkgZeljanicaSwirl from "../images/packaging/zeljanica-swirl-front.jpg";
-import pkgSirnicaSwirl from "../images/packaging/sirnica-swirl-front.jpg";
-import pkgBurekSwirl from "../images/packaging/burek-swirl-front.jpg";
-import pkgKrompirusaSwirl from "../images/packaging/krompirusa-swirl-front.jpg";
+import pkgZeljanicaSwirl from "../images/packaging/zeljanica-swirl-front.png";
+import pkgSirnicaSwirl from "../images/packaging/cheese-swirl-front.png";
+import pkgBurekSwirl from "../images/packaging/burek-swirl-front.png";
+import pkgKrompirusaSwirl from "../images/packaging/krompirusa-swirl-front.png";
 import pkgAppleSwirl from "../images/packaging/apple-swirl-front.jpg";
-import pkgZeljanicaBites from "../images/packaging/zeljanica-bites-front.jpg";
-import pkgCheeseBites from "../images/packaging/cheese-bites-front.jpg";
-import pkgBurekBites from "../images/packaging/burek-bites-front.jpg";
+import pkgZeljanicaBites from "../images/packaging/zeljanica-bites-front.png";
+import pkgCheeseBites from "../images/packaging/cheese-bites-front.png";
+import pkgBurekBites from "../images/packaging/burek-bites-front.png";
 import pkgKrompirusaBites from "../images/packaging/krompirusa-bites-front.jpg";
-import pkgAppleBites from "../images/packaging/apple-bites-front.jpg";
+import pkgAppleBites from "../images/packaging/apple-bites-front.png";
 import pkgZeljanicaBack from "../images/packaging/zeljanica-back.jpg";
 import pkgSirnicaBack from "../images/packaging/sirnica-back.jpg";
 import pkgBurekSwirlBack from "../images/packaging/burek-swirl-back.jpg";
@@ -154,7 +154,10 @@ function Hero() {
         </p>
 
         <div className="hero__actions">
-          <button onClick={() => goToSection("products")} className="btn btn--red">
+          <button
+            onClick={() => goToSection("products")}
+            className="btn btn--red"
+          >
             View Bites &amp; Swirls →
           </button>
           <button
@@ -556,7 +559,11 @@ const PRODUCTS: Product[] = [
     ...p,
     variant: "Bites" as const,
     img: p.bitesImg,
-    images: [p.bitesImg, ("bitesBackImg" in p ? p.bitesBackImg : p.backImg) as string, p.nutritionImg],
+    images: [
+      p.bitesImg,
+      ("bitesBackImg" in p ? p.bitesBackImg : p.backImg) as string,
+      p.nutritionImg,
+    ],
   })),
 ];
 
@@ -591,34 +598,40 @@ function Products() {
           </h2>
         </div>
 
-        {[{ label: "Swirls", items: swirls }, { label: "Bites", items: bites }].map(
-          ({ label, items }) => (
-            <div className="products__group" key={label}>
-              <h3 className="products__group-label">{label}</h3>
-              <div className="products__grid">
-                {items.map((product) => (
-                  <button
-                    key={product.id + product.variant}
-                    className="product-card"
-                    onClick={() => openProduct(product)}
-                  >
-                    <img
-                      className="product-card__img-slot"
-                      src={product.img}
-                      alt={`${product.name} ${product.variant}`}
-                    />
-                    <div className="product-card__body">
-                      <span className="product-card__name">
-                        {product.name} <span className="product-card__variant">{product.variant}</span>
+        {[
+          { label: "Swirls", items: swirls },
+          { label: "Bites", items: bites },
+        ].map(({ label, items }) => (
+          <div className="products__group" key={label}>
+            <h3 className="products__group-label">{label}</h3>
+            <div className="products__grid">
+              {items.map((product) => (
+                <button
+                  key={product.id + product.variant}
+                  className="product-card"
+                  onClick={() => openProduct(product)}
+                >
+                  <img
+                    className="product-card__img-slot"
+                    src={product.img}
+                    alt={`${product.name} ${product.variant}`}
+                  />
+                  <div className="product-card__body">
+                    <span className="product-card__name">
+                      {product.name}{" "}
+                      <span className="product-card__variant">
+                        {product.variant}
                       </span>
-                      <span className="product-card__subtitle">{product.subtitle}</span>
-                    </div>
-                  </button>
-                ))}
-              </div>
+                    </span>
+                    <span className="product-card__subtitle">
+                      {product.subtitle}
+                    </span>
+                  </div>
+                </button>
+              ))}
             </div>
-          )
-        )}
+          </div>
+        ))}
       </div>
 
       {selected && (
@@ -627,7 +640,11 @@ function Products() {
             className="product-modal__box"
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="product-modal__close" onClick={closeModal} aria-label="Close">
+            <button
+              className="product-modal__close"
+              onClick={closeModal}
+              aria-label="Close"
+            >
               ✕
             </button>
 
@@ -645,14 +662,22 @@ function Products() {
                 <>
                   <button
                     className="product-modal__gallery-prev"
-                    onClick={() => setImgIdx((i) => (i - 1 + selected.images.length) % selected.images.length)}
+                    onClick={() =>
+                      setImgIdx(
+                        (i) =>
+                          (i - 1 + selected.images.length) %
+                          selected.images.length,
+                      )
+                    }
                     aria-label="Previous photo"
                   >
                     ‹
                   </button>
                   <button
                     className="product-modal__gallery-next"
-                    onClick={() => setImgIdx((i) => (i + 1) % selected.images.length)}
+                    onClick={() =>
+                      setImgIdx((i) => (i + 1) % selected.images.length)
+                    }
                     aria-label="Next photo"
                   >
                     ›
@@ -674,7 +699,9 @@ function Products() {
             <div className="product-modal__content">
               <span className="product-modal__variant">{selected.variant}</span>
               <h3 className="product-modal__title">{selected.name}</h3>
-              <span className="product-modal__subtitle">{selected.subtitle}</span>
+              <span className="product-modal__subtitle">
+                {selected.subtitle}
+              </span>
               <p className="product-modal__desc">{selected.description}</p>
             </div>
           </div>
