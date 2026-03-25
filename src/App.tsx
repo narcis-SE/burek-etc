@@ -482,8 +482,8 @@ function About() {
 const PRODUCT_BASE = [
   {
     id: "zeljanica",
-    name: "Zeljanica",
-    subtitle: "Spinach & Cheese",
+    name: "Spinach & Cheese",
+    subtitle: "Zeljanica",
     description:
       "Traditional Bosnian pita featuring hand-stretched, multi-layered phyllo dough. Filled with a savory blend of Feta and Ricotta cheeses mixed with fresh Spinach. Hand-rolled to ensure a crisp exterior and tender, layered interior.",
     swirlImg: pkgZeljanicaSwirl,
@@ -493,8 +493,8 @@ const PRODUCT_BASE = [
   },
   {
     id: "sirnica",
-    name: "Sirnica",
-    subtitle: "Cheese",
+    name: "Cheese",
+    subtitle: "Sirnica",
     description:
       "A classic vegetarian staple. This handmade pastry utilizes dozens of thin phyllo layers to encase a balanced Feta and Ricotta cheese blend. Salted to profile and baked until the pastry achieves a golden, flaky texture.",
     swirlImg: pkgSirnicaSwirl,
@@ -504,8 +504,8 @@ const PRODUCT_BASE = [
   },
   {
     id: "burek",
-    name: "Burek",
-    subtitle: "Beef",
+    name: "Beef",
+    subtitle: "Burek",
     description:
       'The authentic "Burek." Comprised of lean Beef, sautéed Onions, and a traditional Bosnian spice profile. The meat is folded into handmade dough, creating a dense, savory filling within light, concentric layers of pastry. Halal options are available.',
     swirlImg: pkgBurekSwirl,
@@ -516,8 +516,8 @@ const PRODUCT_BASE = [
   },
   {
     id: "krompirusa",
-    name: "Krompirusa",
-    subtitle: "Potato",
+    name: "Potato",
+    subtitle: "Krompirusa",
     description:
       "A traditional vegan-friendly option (Krompiruša). Features diced Potatoes seasoned with Onions, black pepper, and salt. The starch provides a soft contrast to the crisp, hand-worked phyllo dough layers.",
     swirlImg: pkgKrompirusaSwirl,
@@ -618,10 +618,7 @@ function Products() {
                   />
                   <div className="product-card__body">
                     <span className="product-card__name">
-                      {product.name}{" "}
-                      <span className="product-card__variant">
-                        {product.variant}
-                      </span>
+                      {product.name}
                     </span>
                     <span className="product-card__subtitle">
                       {product.subtitle}
