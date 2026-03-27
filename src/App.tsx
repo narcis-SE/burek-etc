@@ -28,8 +28,10 @@ import pkgCheeseBites from "../images/packaging/cheese-bites-front.png";
 import pkgBurekBites from "../images/packaging/burek-bites-front.png";
 import pkgKrompirusaBites from "../images/packaging/krompirusa-bites-front.jpg";
 import pkgAppleBites from "../images/packaging/apple-bites-front.png";
-import pkgZeljanicaBack from "../images/packaging/zeljanica-back.jpg";
-import pkgSirnicaBack from "../images/packaging/sirnica-back.jpg";
+import pkgZeljanicaBack from "../images/packaging/zeljanica-back.png";
+import pkgZeljanicaBitesBack from "../images/packaging/zeljanica-bites-back.png";
+import pkgSirnicaBack from "../images/packaging/sirnica-back.png";
+import pkgSirnicaBitesBack from "../images/packaging/sirnica-bites-back.png";
 import pkgBurekSwirlBack from "../images/packaging/burek-swirl-back.jpg";
 import pkgBurekBitesBack from "../images/packaging/burek-bite-back-v2.jpg";
 import pkgKrompirusaBack from "../images/packaging/krompirusa-back.jpg";
@@ -489,6 +491,7 @@ const PRODUCT_BASE = [
     swirlImg: pkgZeljanicaSwirl,
     bitesImg: pkgZeljanicaBites,
     backImg: pkgZeljanicaBack,
+    bitesBackImg: pkgZeljanicaBitesBack,
     nutritionImg: nlZeljanica,
   },
   {
@@ -500,6 +503,7 @@ const PRODUCT_BASE = [
     swirlImg: pkgSirnicaSwirl,
     bitesImg: pkgCheeseBites,
     backImg: pkgSirnicaBack,
+    bitesBackImg: pkgSirnicaBitesBack,
     nutritionImg: nlSirnica,
   },
   {
